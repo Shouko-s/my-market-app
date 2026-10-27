@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.yandex.practicum.mymarket.business.dto.request.ItemRequestDto;
 import ru.yandex.practicum.mymarket.business.dto.response.ItemResponseDto;
-import ru.yandex.practicum.mymarket.business.service.ItemService;
+import ru.yandex.practicum.mymarket.business.facade.ItemFacade;
 
 @Controller
 @RequestMapping("/admin/items")
@@ -20,7 +20,7 @@ public class AdminItemController {
 
     private static final String FORM_VIEW = "admin/item-form";
 
-    private final ItemService itemService;
+    private final ItemFacade itemFacade;
 
     @GetMapping("/new")
     public String newItemForm(Model model) {
@@ -33,7 +33,7 @@ public class AdminItemController {
         if (bindingResult.hasErrors()) {
             return FORM_VIEW;
         }
-        ItemResponseDto created = itemService.create(item);
+        ItemResponseDto created = itemFacade.create(item);
         return "redirect:/items/" + created.id();
     }
 }
