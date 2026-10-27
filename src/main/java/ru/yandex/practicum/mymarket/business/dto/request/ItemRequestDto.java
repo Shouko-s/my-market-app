@@ -14,14 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class ItemRequestDto {
 
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "Введите название товара")
+    @Size(max = 255, message = "Название не должно быть длиннее 255 символов")
     private String title;
 
     private String description;
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "Введите цену товара")
+    @PositiveOrZero(message = "Цена не может быть отрицательной")
     private Long price;
 
     private MultipartFile image;
