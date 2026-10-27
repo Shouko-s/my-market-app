@@ -18,6 +18,14 @@ spring:
       hibernate:
         format_sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: false
+    enabled: true
+
+app:
+  images-dir: uploads/images
