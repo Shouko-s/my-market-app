@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: my-market-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: my-market-app
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_IMAGES_DIR: /app/uploads/images
+    ports:
+      - "8080:8080"
+    volumes:
+      - images-data:/app/uploads
+
+volumes:
+  postgres-data:
+  images-data:
